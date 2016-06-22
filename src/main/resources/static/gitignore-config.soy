@@ -1,0 +1,58 @@
+{namespace plugin.gitignore}
+
+/**
+ * @param config
+ * @param? errors
+ */
+{template .config}
+    <html>
+    <head>
+        <meta name="decorator" content="atl.admin">
+        <title>Default .gitignore configuration</title>
+    </head>
+    <body>
+        <div class="aui-page-header-main">
+            <h2>Default .gitignore configuration</h2>
+            <p>
+                Set the content of the default .gitignore and the path to the SSH private key
+            </p>
+        </div>
+        <form class="aui prevent-double-submit project-settings" action="" method="post">
+            <div class="field-group">
+                <label for="gitignoreContent">Default .gitignore content</label>
+                <textarea style="width:80%;min-height:400px;height:100%;" id="gitignoreContent" name="gitignoreContent" required>{$config['gitignoreContent'] ?: ''}</textarea>
+                {if $errors['gitignoreContent'] }
+                    <div class="error">{$errors['gitignoreContent']}</div>
+                {/if}
+            </div>
+            <div class="field-group">
+                <label for="userName">User's name</label>
+                <input class="text" id="userName" name="userName" title="User that will interact with the repositories" type="text" value="{$config['userName'] ?: '' }" required>
+                {if $errors['userName'] }
+                    <div class="error">{$errors['userName']}</div>
+                {/if}
+            </div>
+            <div class="field-group">
+                <label for="userEmail">User's email</label>
+                <input class="email" id="userEmail" name="userEmail" title="Above user's email" type="email" value="{$config['userEmail'] ?: '' }" required>
+                {if $errors['userEmail'] }
+                    <div class="error">{$errors['userEmail']}</div>
+                {/if}
+            </div>
+            <div class="field-group">
+                <label for="sshKeyPath">SSH private key path</label>
+                <input class="text" id="sshKeyPath" name="sshKeyPath" title="Path to the SSH private key" type="url" value="{$config['sshKeyPath'] ?: '' }" required>
+                {if $errors['sshKeyPath'] }
+                    <div class="error">{$errors['sshKeyPath']}</div>
+                {/if}
+            </div>
+            <div class="buttons-container">
+                <div class="buttons">
+                    <input class="aui-button aui-button-primary" type="submit" value="Save" id="submit" name="submit">
+                    <a class="cancel" href="{nav_admin()}">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </body>
+    </html>
+{/template}

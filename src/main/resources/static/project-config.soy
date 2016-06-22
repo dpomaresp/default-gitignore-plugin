@@ -1,0 +1,42 @@
+{namespace plugin.project}
+
+/**
+ * @param config
+ * @param project Project object
+ * @param? errors
+ */
+{template .config}
+    <html>
+    <head>
+        <meta name="decorator" content="bitbucket.project.settings">
+        <meta name="projectKey" content="{$project.key}">
+        <meta name="activeTab" content="project-settings-plugin-tab">
+        <title>Project .gitignore configuration</title>
+    </head>
+    <body>
+        <div class="aui-page-header-inner">
+            <div class="aui-page-header-main">
+                <h2>Project .gitignore configuration</h2>
+            </div>
+            <div class="aui-buttons switch mode-toggle  aui-page-header-actions">
+                <form action="" method="post">
+                {if $config[$project.key] == true}
+                    <input class="aui-button switch-mode-off mode-disabled" title="Disable plugin" autocomplete="off"
+                        value="Disabled" name="{$project.key}" type="submit" />
+                    <input class="aui-button switch-mode-on  mode-enabled" title="Enable plugin" autocomplete="off"
+                        type="submit" value="Enabled" name="{$project.key}" aria-pressed="true" disabled />
+                {else}
+                    <input class="aui-button switch-mode-off mode-disabled" title="Disable plugin" autocomplete="off"
+                        type="submit" value="Disabled" name="{$project.key}" disabled />
+                    <input class="aui-button switch-mode-on  mode-enabled" title="Enable plugin" autocomplete="off"
+                        type="submit" value="Enabled" name="{$project.key}" />
+                {/if}
+                {if $errors['pluginEnabled'] }
+                    <div class="error"> {$errors['pluginEnabled']} </div>
+                {/if}
+                </form>
+            </div>
+        </div>
+    </body>
+    </html>
+{/template}

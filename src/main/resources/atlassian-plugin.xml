@@ -1,0 +1,47 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <param name="configure.url">/plugins/servlet/default-gitignore/config</param>
+    </plugin-info>
+
+    <web-resource key="default-gitignore-resources" name="Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="gitignore_template" location="resources/gitignore_template.txt"/>
+
+        <context>default-gitignore</context>
+    </web-resource>
+
+    <servlet key="default-gitignore-config-servlet" name="Default gitignore configuration servlet"
+             class="ie.despadina.bitbucket.plugin.DefaultGitignoreConfigServlet">
+        <url-pattern>/default-gitignore/*</url-pattern>
+    </servlet>
+
+    <servlet name="Default gitignore project servlet" key="default-gitignore-project-servlet"
+             class="ie.despadina.bitbucket.plugin.DefaultGitignoreProjectServlet">
+        <url-pattern>/project/default-gitignore/*</url-pattern>
+    </servlet>
+
+    <client-resource key="gitignore-config-serverside">
+        <directory location="/static/" />
+        <dependency>com.atlassian.bitbucket.server.bitbucket-web:server-soy-templates</dependency>
+        <dependency>com.atlassian.bitbucket.server.bitbucket-web:global</dependency>
+    </client-resource>
+
+    <web-item key="project-settings-plugin-tab" name="Project settings navigation tab" section="bitbucket.project.settings.panel" weight="20">
+        <label>Default gitignore plugin</label>
+        <link>/plugins/servlet/project/default-gitignore/${project.key}/settings</link>
+    </web-item>
+
+    <component-import key="soyTemplateRenderer" interface="com.atlassian.soy.renderer.SoyTemplateRenderer"/>
+
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+
+    <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory" />
+
+    <component-import key="projectService" interface="com.atlassian.bitbucket.project.ProjectService"/>
+
+    <component key="repositoryCreatedListener" class="ie.despadina.bitbucket.plugin.RepositoryCreatedListener"/>
+
+    <component key="settings" class="ie.despadina.bitbucket.plugin.PluginGlobalSettings" />
+</atlassian-plugin>

@@ -1,0 +1,21 @@
+--------------
+v0.1-SNAPSHOT
+--------------
+1. Test/Debug the plugin locally:
+    To run a Bitbucket local server with the plugin already added and in debug mode:
+        - atlas-debug
+    Once the server is running you can redeploy the changes you have done to the plugin:
+        - 1. atlas-cli
+	    - 2. pi
+
+2. Install the plugin
+    Create a private/public pair ssh keys: ssh-keygen -C <admin_email>
+    Go to "Administration" (top right corner)
+        1. Go to "Users" and add the public ssh key to the 'admin' user
+        2. Drop the private key somewhere in the bitbucket host machine and you will refer to it later in the configuration
+        3. Go to "Manage add-ons" within "Administration", click "Upload add-on" and look for the jar file for this plugin
+        4. Configure the plugin
+        5. Disable the plugin for the projects where you don't want to use the default .gitignore (under project configuration)
+
+    Once everything is done, the repositories created under a project which has the default .gitignore plugin enabled will have
+    the default .gitignore

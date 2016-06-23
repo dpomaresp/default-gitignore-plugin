@@ -65,7 +65,7 @@ public class DefaultGitignoreActions {
   }
 
   public void addToNewBitbucketRepository() throws IOException, GitAPIException{
-    if(isPluginEnable()) {
+    if(isPluginEnable() && !bitbucketRepository.isFork()) {
       cloneRepository();
       copyAndStageGitignoreFile();
       commitGitignore();
